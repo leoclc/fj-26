@@ -41,7 +41,9 @@
 					#{produto.preco}
 				</h:column>
 				<h:column>
-					<h:commandLink action="#{produtoBean.remove(produto)}" value="Remover"/>
+					<h:commandLink action="#{produtoBean.remove(produto)}" value="Remover">
+						<f:ajax render="@form" />
+					</h:commandLink>
 				</h:column>
 				<h:column>
 					<h:commandLink value="Alterar">
