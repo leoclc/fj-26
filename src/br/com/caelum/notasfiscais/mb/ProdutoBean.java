@@ -29,6 +29,10 @@ public class ProdutoBean {
 		this.setProduto(new Produto());
 	}
 	
+	public void cancela(){
+		this.produto = new Produto();
+	}
+	
 	public void remove(Produto produto){
 		DAO<Produto> dao = new DAO<Produto>(Produto.class);
 		dao.remove(produto);
