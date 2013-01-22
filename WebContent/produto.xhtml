@@ -8,6 +8,10 @@
 	</h:head>
 	<h:body>
 		<h:form>
+			<h2>
+				<h:outputText value="Novo Produto" rendered="#{empty produtoBean.produto.id}" />
+				<h:outputText value="Editar Produto" rendered="#{not empty produtoBean.produto.id}" />
+			</h2>
 			<h:panelGrid columns="2"> 
 				<h:outputLabel value="Nome:" for="nome" />
 				<h:inputText id="nome" value="#{produtoBean.produto.nome}"/>
@@ -22,23 +26,28 @@
 			</h:panelGrid>		
 		</h:form>
 		<h:form>
-		<h:dataTable value="#{produtoBean.produtos}" var="produto" border="1" bgcolor="Silver"  >
-			<h:column>
-				<f:facet name="header"><b>Nome</b></f:facet>		
-				#{produto.nome}
-			</h:column>
-			<h:column>
-				<f:facet name="header"><b>Descrição</b></f:facet>		
-				#{produto.descricao}
-			</h:column>
-			<h:column>
-				<f:facet name="header"><b>Preço</b></f:facet>		
-				#{produto.preco}
-			</h:column>
-			<h:column>
-				<h:commandLink action="#{produtoBean.remove(produto)}" value="Remover"/>
-			</h:column>
-		</h:dataTable>
+			<h:dataTable value="#{produtoBean.produtos}" var="produto" border="1" bgcolor="Silver"  >
+				<h:column>
+					<f:facet name="header"><b>Nome</b></f:facet>		
+					#{produto.nome}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><b>Descrição</b></f:facet>		
+					#{produto.descricao}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><b>Preço</b></f:facet>		
+					#{produto.preco}
+				</h:column>
+				<h:column>
+					<h:commandLink action="#{produtoBean.remove(produto)}" value="Remover"/>
+				</h:column>
+				<h:column>
+					<h:commandLink value="Alterar">
+						<f:setPropertyActionListener target="#{produtoBean.produto}" value="#{produto}"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
 		</h:form>	
 	</h:body>
 </html>

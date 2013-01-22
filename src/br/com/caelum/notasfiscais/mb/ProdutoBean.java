@@ -3,10 +3,12 @@ package br.com.caelum.notasfiscais.mb;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.Produto;
 
+@ViewScoped
 @ManagedBean
 public class ProdutoBean {
 	private Produto produto = new Produto();
@@ -18,9 +20,13 @@ public class ProdutoBean {
 	
 	public void grava(){
 		DAO<Produto> dao = new DAO<Produto>(Produto.class);
-		dao.adiciona(produto);
-		this.produto = new Produto();
+		if(getProduto().getId()==null){
+			dao.adiciona(getProduto());
+		} else {
+			dao.atualiza(getProduto());
+		}
 		this.produtos = dao.listaTodos();
+		this.setProduto(new Produto());
 	}
 	
 	public void remove(Produto produto){
@@ -39,5 +45,9 @@ public class ProdutoBean {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 }
