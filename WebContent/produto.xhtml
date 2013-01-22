@@ -21,9 +21,8 @@
 				<h:commandButton value="Gravar" action="#{produtoBean.grava}" />
 			</h:panelGrid>		
 		</h:form>
-		
-		<h:dataTable value="#{produtoBean.produtos}" var="produto" >
-		
+		<h:form>
+		<h:dataTable value="#{produtoBean.produtos}" var="produto" border="1" bgcolor="Silver"  >
 			<h:column>
 				<f:facet name="header"><b>Nome</b></f:facet>		
 				#{produto.nome}
@@ -36,10 +35,10 @@
 				<f:facet name="header"><b>Preço</b></f:facet>		
 				#{produto.preco}
 			</h:column>
-		
+			<h:column>
+				<h:commandLink action="#{produtoBean.remove(produto)}" value="Remover"/>
+			</h:column>
 		</h:dataTable>
-		
-		
-		
+		</h:form>	
 	</h:body>
 </html>

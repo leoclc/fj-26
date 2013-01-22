@@ -22,6 +22,12 @@ public class ProdutoBean {
 		this.produto = new Produto();
 		this.produtos = dao.listaTodos();
 	}
+	
+	public void remove(Produto produto){
+		DAO<Produto> dao = new DAO<Produto>(Produto.class);
+		dao.remove(produto);
+		this.produtos = dao.listaTodos();
+	}
 
 	public List<Produto> getProdutos() {
 		if(produtos==null){
