@@ -5,55 +5,67 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 	<h:head>
 		<title>Sistema de Notas Fiscais</title>
+		<h:outputStylesheet library="css" name="style.css"/>
 	</h:head>
 	<h:body>
-		<h:form id="cadastro">
-			<h2>
-				<h:outputText value="Novo Produto" rendered="#{empty produtoBean.produto.id}" />
-				<h:outputText value="Editar Produto" rendered="#{not empty produtoBean.produto.id}" />
-			</h2>
-			<h:panelGrid columns="2"> 
-				<h:outputLabel value="Nome:" for="nome" />
-				<h:inputText id="nome" value="#{produtoBean.produto.nome}"/>
-				
-				<h:outputLabel value="Descrição:" for="descricao" />
-				<h:inputTextarea id="descricao" value="#{produtoBean.produto.descricao}" />
-				
-				<h:outputLabel value="Preço" for="preco" />
-				<h:inputTextarea id="preco" value="#{produtoBean.produto.preco}" />
-				
-				<h:commandButton value="Gravar" action="#{produtoBean.grava}">
-					<f:ajax render="@form :Tabela" execute="@form" />
-				</h:commandButton>
-				<h:commandButton value="Cancela" action="#{produtoBean.cancela}" rendered="#{not empty produtoBean.produto.id }"/>
-			</h:panelGrid>		
-		</h:form>
-		<h:form id="Tabela">
-			<h:dataTable value="#{produtoBean.produtos}" var="produto" border="1" bgcolor="Silver"  >
-				<h:column>
-					<f:facet name="header"><b>Nome</b></f:facet>		
-					#{produto.nome}
-				</h:column>
-				<h:column>
-					<f:facet name="header"><b>Descrição</b></f:facet>		
-					#{produto.descricao}
-				</h:column>
-				<h:column>
-					<f:facet name="header"><b>Preço</b></f:facet>		
-					#{produto.preco}
-				</h:column>
-				<h:column>
-					<h:commandLink action="#{produtoBean.remove(produto)}" value="Remover">
-						<f:ajax render="@form" />
-					</h:commandLink>
-				</h:column>
-				<h:column>
-					<h:commandLink value="Alterar">
-						<f:ajax render=":Tabela :cadastro" />
-						<f:setPropertyActionListener target="#{produtoBean.produto}" value="#{produto}"/>
-					</h:commandLink>
-				</h:column>
-			</h:dataTable>
-		</h:form>	
+		<div id="cabecalho">
+			<h:graphicImage library="imagens" name="logo-uber.png" id="logoCompany" />
+		</div>
+		<div id="conteudo">
+			<h:form id="cadastro">
+				<h2>
+					<h:outputText value="Novo Produto" rendered="#{empty produtoBean.produto.id}" />
+					<h:outputText value="Editar Produto" rendered="#{not empty produtoBean.produto.id}" />
+				</h2>
+				<fieldset>
+					<legend>Dados do Produto</legend>
+					<h:outputLabel value="Nome:" for="nome" />
+					<h:inputText id="nome" value="#{produtoBean.produto.nome}"/>
+					
+					<h:outputLabel value="Descrição:" for="descricao" />
+					<h:inputTextarea id="descricao" value="#{produtoBean.produto.descricao}" />
+					
+					<h:outputLabel value="Preço" for="preco" />
+					<h:inputTextarea id="preco" value="#{produtoBean.produto.preco}" />
+					
+					<h:commandButton value="Gravar" action="#{produtoBean.grava}">
+						<f:ajax render="@form :Tabela" execute="@form" />
+					</h:commandButton>
+					<h:commandButton value="Cancela" action="#{produtoBean.cancela}" rendered="#{not empty produtoBean.produto.id }"/>
+				</fieldset>
+			</h:form>
+			<h2>Listagem de Produtos</h2>
+			<h:form id="Tabela">
+				<h:dataTable value="#{produtoBean.produtos}" var="produto" styleClass="dados" rowClasses="impar,par">
+					<h:column>
+						<f:facet name="header"><b>Nome</b></f:facet>		
+						#{produto.nome}
+					</h:column>
+					<h:column>
+						<f:facet name="header"><b>Descrição</b></f:facet>		
+						#{produto.descricao}
+					</h:column>
+					<h:column>
+						<f:facet name="header"><b>Preço</b></f:facet>		
+						#{produto.preco}
+					</h:column>
+					<h:column>
+						<h:commandLink action="#{produtoBean.remove(produto)}" value="Remover">
+							<f:ajax render="@form" />
+						</h:commandLink>
+					</h:column>
+					<h:column>
+						<h:commandLink value="Alterar">
+							<f:ajax render=":Tabela :cadastro" />
+							<f:setPropertyActionListener target="#{produtoBean.produto}" value="#{produto}"/>
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>
+			</h:form>	
+		</div>
+		<div id="rodape">
+			Copyright 2010.
+			Todos os Direitos reservados a pessoa mais fera do mundo (Leo).
+		</div>
 	</h:body>
 </html>
