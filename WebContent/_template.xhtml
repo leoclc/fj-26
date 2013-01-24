@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<title>Sistema de Notas Fiscais</title>
+		<h:outputStylesheet name="style.css" library="css"/>
+	</h:head>
+	<h:body>
+		<div id="cabecalho">
+			<h:graphicImage library="imagens" name="logo-uber.png" id="logoCompany" />
+		<ui:insert name="usuarioLogado">
+			<h:form rendered="#{loginBean.logado}">
+				<div id="usuarioLogado">
+					Logado como: #{loginBean.usuario.login}
+					<h:commandLink value="Logout" action="#{loginBean.logout}"  />
+				</div>	
+			</h:form>
+		</ui:insert>
+		</div>
+		<div id="conteudo">
+			<ui:insert name="corpo" />
+		</div>
+		<div id="rodape">
+			Copyright 2010.
+			Todos os Direitos reservados a pessoa mais fera do mundo (Leo).
+		</div>
+	</h:body>
+</html>

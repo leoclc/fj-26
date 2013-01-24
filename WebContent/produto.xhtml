@@ -2,24 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
-	<h:head>
-		<title>Sistema de Notas Fiscais</title>
-		<h:outputStylesheet library="css" name="style.css"/>
-	</h:head>
-	<h:body>
-		<div id="cabecalho">
-			<h:graphicImage library="imagens" name="logo-uber.png" id="logoCompany" />
-			<div id="usuarioLogado">
-			Logado como: #{loginBean.usuario.login}
-			</div>
-				<div>
-					<h:form>
-						<h:commandLink value="Logout" action="#{loginBean.logout}"  />
-					</h:form>
-				</div>	
-			</div>
-		<div id="conteudo">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:composition template="/_template.xhtml">
+		<ui:define name="corpo">
 			<h:form id="cadastro">
 				<h2>
 					<h:outputText value="Novo Produto" rendered="#{empty produtoBean.produto.id}" />
@@ -70,10 +56,6 @@
 					</h:column>
 				</h:dataTable>
 			</h:form>	
-		</div>
-		<div id="rodape">
-			Copyright 2010.
-			Todos os Direitos reservados a pessoa mais fera do mundo (Leo).
-		</div>
-	</h:body>
+		</ui:define>
+	</ui:composition>	
 </html>
