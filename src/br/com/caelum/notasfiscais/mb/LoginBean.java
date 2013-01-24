@@ -23,6 +23,15 @@ public class LoginBean {
 		}
 	}
 	
+	public boolean isLogado(){
+		return usuario.getLogin() != null;
+	}
+	
+	public String logout(){
+		this.usuario = new Usuario();
+		return "login";
+	}
+	
 	public Usuario getUsuario(){
 		return this.usuario;
 	}

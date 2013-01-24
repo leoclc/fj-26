@@ -13,7 +13,12 @@
 			<div id="usuarioLogado">
 			Logado como: #{loginBean.usuario.login}
 			</div>
-		</div>
+				<div>
+					<h:form>
+						<h:commandLink value="Logout" action="#{loginBean.logout}"  />
+					</h:form>
+				</div>	
+			</div>
 		<div id="conteudo">
 			<h:form id="cadastro">
 				<h2>
