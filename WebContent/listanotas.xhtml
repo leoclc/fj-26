@@ -8,7 +8,8 @@
 	<ui:composition template="/_template.xhtml">
 		<ui:define name="usuarioLogado"/>
 		<ui:define name="corpo">
-			<p:dataTable value="#{listaNotasFiscaisBean.notas}" var="notaFiscal" paginator="true" rows="10">
+		<h:form>
+			<p:dataTable value="#{listaNotasFiscaisBean.dataModel}" var="notaFiscal" paginator="true" rows="5" dynamic="true" lazy="true">
 					<p:column headerText="ID">
 						<h:outputText value="#{notaFiscal.id}"/> 
 					</p:column>	
@@ -21,6 +22,7 @@
 						</h:outputText>
 					</p:column>				
 			</p:dataTable>
+		</h:form>	
 		</ui:define>
 	</ui:composition>
 </html>
