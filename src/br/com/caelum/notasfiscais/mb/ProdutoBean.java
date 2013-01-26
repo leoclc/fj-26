@@ -2,22 +2,36 @@ package br.com.caelum.notasfiscais.mb;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.Produto;
+
+
 
 @ViewScoped
 @ManagedBean
 public class ProdutoBean {
 	private Produto produto = new Produto();
 	private List<Produto> produtos;
+
 	
 	public Produto getProduto() {
 		return this.produto;
 	}
 	
+	
+	public void comecaComMaiuscula(FacesContext fc, UIComponent component, Object value) throws ValidatorException{
+			 String valor = value.toString();
+			if(!valor.matches("[A-Z].*")){
+				throw new ValidatorException(new FacesMessage("Deveria começar com maiúscula"));
+			}
+		}
 	public void grava(){
 		DAO<Produto> dao = new DAO<Produto>(Produto.class);
 		if(getProduto().getId()==null){
