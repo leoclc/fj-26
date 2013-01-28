@@ -11,7 +11,7 @@
 		<h:form>
 			<p:dataTable value="#{listaNotasFiscaisBean.dataModel}" var="notaFiscal" paginator="true" rows="5" dynamic="true" lazy="true">
 					<p:column headerText="ID">
-						<h:outputText value="#{notaFiscal.id}"/> 
+						<h:outputText value="#{notaFiscal.id}" converter="cnpj"/> 
 					</p:column>	
 					<p:column headerText="CNPJ">
 						<h:outputText value="#{notaFiscal.cnpj}" />
