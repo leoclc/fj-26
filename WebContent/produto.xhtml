@@ -30,7 +30,9 @@
 					<h:commandButton value="Gravar" action="#{produtoBean.grava}">
 						<f:ajax render="@form :Tabela" execute="@form" />
 					</h:commandButton>
-					<h:commandButton value="Cancela" action="#{produtoBean.cancela}" rendered="#{not empty produtoBean.produto.id }"/>
+					<h:commandButton immediate="true" value="Cancela" action="#{produtoBean.cancela}" rendered="#{not empty produtoBean.produto.id }">
+						<f:ajax render="@form"/>
+					</h:commandButton>
 				</fieldset>
 			</h:form>
 			<h2>Listagem de Produtos</h2>
