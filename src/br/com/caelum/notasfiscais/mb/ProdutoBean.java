@@ -25,13 +25,6 @@ public class ProdutoBean {
 		return this.produto;
 	}
 	
-	
-	public void comecaComMaiuscula(FacesContext fc, UIComponent component, Object value) throws ValidatorException{
-			 String valor = value.toString();
-			if(!valor.matches("[A-Z].*")){
-				throw new ValidatorException(new FacesMessage("Deveria começar com maiúscula"));
-			}
-		}
 	public void grava(){
 		DAO<Produto> dao = new DAO<Produto>(Produto.class);
 		if(getProduto().getId()==null){
