@@ -2,15 +2,16 @@ package br.com.caelum.notasfiscais.mb;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.UsuarioDAO;
 import br.com.caelum.notasfiscais.modelo.Usuario;
+import br.com.caelum.notasfiscais.modelo.UsuarioLogado;
 
-
-@SessionScoped
+@RequestScoped
 @Named
 public class LoginBean implements Serializable{
 	/**
@@ -21,22 +22,27 @@ public class LoginBean implements Serializable{
 	@Inject
 	private UsuarioDAO dao;
 	
+	@Inject
+	private UsuarioLogado logado;
+	
 	public String efetuaLogin(){
 		boolean loginValido = this.dao.existe(this.usuario);
 		if(loginValido){
-			return "produto";
+			logado.setUsuario(usuario);
+			return "produto?faces-redirect=true";
 		}else{
-			this.usuario = new Usuario();
+			usuario.setLogin("");
+			logado.setUsuario(null);
 			return "login";
 		}
 	}
 	
 	public boolean isLogado(){
-		return usuario.getLogin() != null;
+		return logado.isLogado();
 	}
 	
 	public String logout(){
-		this.usuario = new Usuario();
+		logado.setUsuario(null);
 		return "login";
 	}
 	
