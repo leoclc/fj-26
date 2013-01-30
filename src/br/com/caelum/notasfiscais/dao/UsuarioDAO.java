@@ -1,11 +1,13 @@
 package br.com.caelum.notasfiscais.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import br.com.caelum.notasfiscais.modelo.Produto;
 import br.com.caelum.notasfiscais.modelo.Usuario;
 
 public class UsuarioDAO implements Serializable {
@@ -27,4 +29,15 @@ public class UsuarioDAO implements Serializable {
 		em.getTransaction().commit();
 		return encontrado;
 	}
+	
+	
+	public boolean existeNomeDoProduto(String nome){
+		Query query = em.createQuery("Select nome from Produto");
+		List<String> list = (List<String>) query.getResultList();
+			if(list.contains(nome)){
+				return true;
+			}
+		return false;
+	}
+	
 }

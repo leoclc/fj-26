@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.org/seam/faces">
 	
 	<ui:composition template="/_template.xhtml">
 		<ui:define name="corpo">
@@ -19,7 +20,7 @@
 					<h:inputText id="nome" value="#{produtoBean.produto.nome}">
 						<f:validator validatorId="maiuscula" />
 					</h:inputText>
-					
+					<s:validateForm validatorId="nomeigual"></s:validateForm>
 					<h:outputLabel value="Descrição:" for="descricao" />
 					<h:inputText id="descricao" value="#{produtoBean.produto.descricao}" />
 					
@@ -27,7 +28,7 @@
 					<h:inputText id="preco" value="#{produtoBean.produto.preco}" required="true" requiredMessage="Preço Obrigatório" validatorMessage="O valor mínimo é de 0,50">
 						<f:validateDoubleRange minimum="0.50" />
 					</h:inputText>
-					
+					<s:validateForm validatorId="nomeedescricao"></s:validateForm>
 					<h:commandButton value="Gravar" action="#{produtoBean.grava}">
 						<f:ajax render="@form :Tabela" execute="@form" />
 					</h:commandButton>
