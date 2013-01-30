@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
+import javax.persistence.Id;
 
 import br.com.caelum.notasfiscais.dao.DAO;
 import br.com.caelum.notasfiscais.modelo.Produto;
@@ -18,10 +19,17 @@ public class ProdutoBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Produto produto = new Produto();
 	private List<Produto> produtos;
-
+	private Long produtoId;
 	
 	public Produto getProduto() {
 		return this.produto;
+	}
+	
+	public void carregaProduto(){
+		DAO<Produto> dao = new DAO<Produto>(Produto.class);
+		if(produtoId != null && produtoId != 0){
+			this.produto = dao.buscaPorId(this.produtoId);
+		}
 	}
 	
 	public void grava(){
@@ -59,5 +67,13 @@ public class ProdutoBean implements Serializable{
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public Long getProdutoId() {
+		return produtoId;
+	}
+
+	public void setProdutoId(Long id) {
+		this.produtoId = id;
 	}
 }

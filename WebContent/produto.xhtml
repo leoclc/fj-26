@@ -7,6 +7,10 @@
 	xmlns:s="http://jboss.org/seam/faces">
 	
 	<ui:composition template="/_template.xhtml">
+		<f:metadata>
+			<f:viewParam name="produto.id" value="#{produtoBean.produtoId}"/>
+			<s:viewAction action="#{produtoBean.carregaProduto}"/>
+		</f:metadata>
 		<ui:define name="corpo">
 			<h:form id="cadastro">
 				<h:messages styleClass="erros" />
