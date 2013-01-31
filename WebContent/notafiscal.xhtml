@@ -17,6 +17,19 @@
 					
 					<h:outputLabel value="Data:" />
 					<p:calendar value="#{notaFiscalBean.notaFiscal.data.time}" pattern="dd/MM/yyyy"/>
+					
+					<h:outputLabel id="estado" for="estado" value="Estado:"/>
+					<p:selectOneMenu valueChangeListener="${notaFiscalBean.mudaEstado}" value="${notaFiscalBean.notaFiscal.estado}">
+					    <f:selectItem itemLabel="Selecionar Cidade" noSelectionOption="true"/>  
+					 	<f:selectItems itemValue="#{e}" var="e" value="#{notaFiscalBean.estados}" itemLabel="#{e}" /> 
+					 	<p:ajax update="cidade"/>
+					</p:selectOneMenu>
+					<br/>
+					<h:outputLabel for="cidade" value="Cidade:"/>
+					<p:selectOneMenu  id="cidade" value="#{notaFiscalBean.notaFiscal.cidade}">
+					 	<f:selectItem itemLabel="Selecionar Estado" noSelectionOption="true" />  
+					 	<f:selectItems itemValue="#{c}" var="c" value="#{notaFiscalBean.cidades}" itemLabel="#{c}" />
+					</p:selectOneMenu>
 				</fieldset>			
 				<fieldset>
 					<h:outputLabel value="Produto:" />
@@ -54,7 +67,7 @@
 				</h:column>
 			</h:dataTable>
 			<h:form>
-				<h:commandButton value="Gravar" action="#{notaFiscalBean.gravar}" />
+				<p:commandButton value="Gravar" action="#{notaFiscalBean.gravar}" />
 			</h:form>
 		</ui:define>	
 	</ui:composition>

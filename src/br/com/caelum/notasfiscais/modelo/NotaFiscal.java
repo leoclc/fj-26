@@ -6,12 +6,13 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Pattern;
 
 @Entity
 public class NotaFiscal {
@@ -21,6 +22,10 @@ public class NotaFiscal {
 	private Long id;
 	private String cnpj;
 
+	private String cidade;
+	@Enumerated(EnumType.STRING)
+	private Estado estado;
+	
 	@Temporal(TemporalType.DATE)
 	private Calendar data = Calendar.getInstance();
 
@@ -57,6 +62,22 @@ public class NotaFiscal {
 
 	public void setItens(List<Item> itens) {
 		this.itens = itens;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
 }
