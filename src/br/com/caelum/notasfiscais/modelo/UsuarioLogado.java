@@ -13,7 +13,7 @@ public class UsuarioLogado implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private String lastURL ="produto?faces-redirect=true";
 	private Usuario usuario;
 
 	public Usuario getUsuario() {
@@ -26,6 +26,14 @@ public class UsuarioLogado implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getLastURL() {
+		return lastURL;
+	}
+
+	public void setLastURL(String lastURL) {
+		this.lastURL = lastURL;
 	}
 
 }

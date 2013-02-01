@@ -1,12 +1,17 @@
 package br.com.caelum.notasfiscais.listener;
 
+import javax.enterprise.event.Observes;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.inject.Inject;
 
-import br.com.caelum.notasfiscais.mb.LoginBean;
+import org.jboss.seam.faces.event.qualifier.After;
+import org.jboss.seam.faces.event.qualifier.RestoreView;
+
+import br.com.caelum.notasfiscais.modelo.UsuarioLogado;
 
 public class Autorizador implements PhaseListener {
 
@@ -14,25 +19,24 @@ public class Autorizador implements PhaseListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	@Inject
+	private UsuarioLogado logado;
+	@Inject
+	private NavigationHandler nav;
+	@Inject
+	private FacesContext ctx;
 	@Override
 	public void afterPhase(PhaseEvent event) {
-		FacesContext cxt = event.getFacesContext();
-		if ("/login.xhtml".equals(cxt.getViewRoot().getViewId()))
-			return;
-
-		LoginBean loginBean = cxt.getApplication().evaluateExpressionGet(cxt,
-				"#{loginBean}", LoginBean.class);
-
-		if (!loginBean.isLogado()) {
-			NavigationHandler handler = cxt.getApplication()
-					.getNavigationHandler();
-			handler.handleNavigation(cxt, null, "login?faces-redirect=true");
-
-			cxt.renderResponse();
-		}
 	}
 
+	public void autoriza(@Observes @After @RestoreView PhaseEvent event) {
+		String viewId = ctx.getViewRoot().getViewId();
+		if (!"/login.xhtml".equals(viewId) && !logado.isLogado()){
+			logado.setLastURL(viewId + "?faces-redirect=true");
+		nav.handleNavigation(ctx, null, "login.xhtml?faces-redirect=true");
+		ctx.renderResponse();
+		}
+	}
 	@Override
 	public void beforePhase(PhaseEvent arg0) {
 		// TODO Auto-generated method stub

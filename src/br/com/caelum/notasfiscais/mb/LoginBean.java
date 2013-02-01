@@ -28,7 +28,7 @@ public class LoginBean implements Serializable{
 		boolean loginValido = this.dao.existe(this.usuario);
 		if(loginValido){
 			logado.setUsuario(usuario);
-			return "produto?faces-redirect=true";
+			return logado.getLastURL();
 		}else{
 			usuario.setLogin("");
 			logado.setUsuario(null);

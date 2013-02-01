@@ -24,7 +24,7 @@
 					<h:inputText id="nome" value="#{produtoBean.produto.nome}">
 						<f:validator validatorId="maiuscula" />
 					</h:inputText>
-					<s:validateForm validatorId="nomeigual"></s:validateForm>
+					<s:validateForm validatorId="nomeigual" ></s:validateForm>
 					<h:outputLabel value="Descrição:" for="descricao" />
 					<h:inputText id="descricao" value="#{produtoBean.produto.descricao}" />
 					
