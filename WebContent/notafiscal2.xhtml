@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:s="http://jboss.org/seam/faces">
+<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<h:form id="cadastro">
+			<h:messages styleClass="erros" />
+			<h2>
+				<h:outputText value="Novo Produto"
+					rendered="#{empty produtoBean.produto.id}" />
+				<h:outputText value="Editar Produto"
+					rendered="#{not empty produtoBean.produto.id}" />
+			</h2>
+		</h:form>
+		<h:form>
+			<p:growl id="growl" sticky="true" showDetail="true" />
+
+			<p:wizard widgetVar="wiz"
+				flowListener="#{notaFiscalBean.onFlowProcess}">
+
+				<p:tab id="Nota" title="Nota Fiscal">
+
+					<p:panel header="Dados da Nota">
+
+						<h:messages errorClass="error" />
+
+						<h:panelGrid columns="2" columnClasses="label, value"
+							styleClass="grid">
+
+							<h:outputLabel value="CNPJ Cliente:" />
+							<p:inputMask value="#{notaFiscalBean.notaFiscal.cnpj}"
+								mask="99.999.999/9999-99" converter="cnpj" />
+
+
+							<h:outputLabel value="Data:" />
+							<p:calendar value="#{notaFiscalBean.notaFiscal.data.time}"
+								pattern="dd/MM/yyyy" />
+
+
+							<h:outputLabel id="estado" for="estado" value="Estado:" />
+							<p:selectOneMenu
+								valueChangeListener="${notaFiscalBean.mudaEstado}"
+								value="${notaFiscalBean.notaFiscal.estado}">
+								<f:selectItem itemLabel="Selecionar Cidade"
+									noSelectionOption="true" />
+								<f:selectItems itemValue="#{e}" var="e"
+									value="#{notaFiscalBean.estados}" itemLabel="#{e}" />
+								<p:ajax update="cidade" />
+							</p:selectOneMenu>
+							<h:outputLabel for="cidade2" value="Cidade :" />
+							<p:selectOneMenu id="cidade2"
+								value="#{notaFiscalBean.notaFiscal.cidade}">
+								<f:selectItem itemLabel="Selecionar Estado"
+									noSelectionOption="true" />
+								<f:selectItems itemValue="#{c}" var="c"
+									value="#{notaFiscalBean.cidades}" itemLabel="#{c}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+					</p:panel>
+				</p:tab>
+				<p:tab id="produtos" title="Produtos">
+					<h:form>
+						<p:panel header="Produtos">
+
+							<h:messages errorClass="error" />
+
+							<h:panelGrid columns="2" columnClasses="label, value">
+								<h:outputLabel value="Produto:" />
+								<h:selectOneMenu value="#{notaFiscalBean.idProduto}">
+									<f:selectItems value="#{produtoBean.produtos}" var="produto"
+										itemValue="#{produto.id}" itemLabel="#{produto.nome}" />
+								</h:selectOneMenu>
+
+								<h:outputLabel value="Quantidade:" />
+								<h:inputText value="#{notaFiscalBean.item.quantidade}" />
+								<h:commandButton action="#{notaFiscalBean.guardaItem}"
+									value="Guardar Item" />
+							</h:panelGrid>
+						</p:panel>
+						<h:form>
+							<h:dataTable value="#{notaFiscalBean.notaFiscal.itens}"
+								var="item" styleClass="dados" rowClasses="impar,par">
+								<h:column>
+									<f:facet name="header">Produto</f:facet>
+					#{item.produto.nome}
+				</h:column>
+								<h:column>
+									<f:facet name="header">Valor unitário</f:facet>
+									<h:outputText value="#{item.valorUnitario}">
+										<f:convertNumber type="currency" currencySymbol="R$"
+											locale="pt_BR" />
+									</h:outputText>
+								</h:column>
+								<h:column>
+									<f:facet name="header">Quantidade</f:facet>
+					#{item.quantidade}
+				</h:column>
+								<h:column>
+									<f:facet name="header">Total</f:facet>
+									<h:outputText value="#{item.total}">
+										<f:convertNumber type="currency" currencySymbol="R$"
+											locale="pt_BR" />
+									</h:outputText>
+								</h:column>
+							</h:dataTable>
+						</h:form>
+					</h:form>
+				</p:tab>
+				<p:tab id="confirm" title="Confirmação">
+					<p:panel header="Confirmação">
+
+						<h:panelGrid id="confirmation" columns="6">
+							<h:outputText value="Firstname: " />
+							<h:outputText styleClass="outputLabel"
+								value="#{notaFiscalBean.notaFiscal.cidade}" />
+
+							<h:outputLabel id="cidade" for="cidade" value="Cidade:" />
+							<h:outputText styleClass="outputLabel"
+								value="#{notaFiscalBean.notaFiscal.estado}" />
+							<h:outputLabel id="estado2" for="estado2" value="Estado:" />
+							<h:outputText styleClass="outputLabel"
+								value="#{notaFiscalBean.notaFiscal.estado}" />>
+					</h:panelGrid>
+
+						<p:commandButton value="Submit" update="growl"
+							actionListener="#{notaFiscalBean.save}" />
+
+					</p:panel>
+
+				</p:tab>
+			</p:wizard>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
